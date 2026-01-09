@@ -1,0 +1,19 @@
+#!/bin/bash
+
+## Description: Run Claude Code
+## Usage: claude [args]
+## Example: ddev claude
+## Example: ddev claude --help
+## Example: ddev claude doctor
+
+# Ensure ~/.local/bin is in PATH
+export PATH="$HOME/.local/bin:$PATH"
+
+# Check if claude is installed
+if [ ! -f "$HOME/.local/bin/claude" ]; then
+  echo "Claude Code is not installed. Installing now..."
+  curl -fsSL https://claude.ai/install.sh | bash
+fi
+
+# Run claude with all arguments
+exec "$HOME/.local/bin/claude" "$@"

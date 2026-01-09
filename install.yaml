@@ -1,0 +1,12 @@
+name: claude
+
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ddev/ddev/main/pkg/schemas/addon.schema.json
+
+project_files:
+  - commands/web/claude
+  - config.claude.yaml
+  - docker-compose.claude.yaml
+  - claude/.gitignore
+
+post_install_actions:
+  - echo "Run 'ddev restart' to install Claude Code"

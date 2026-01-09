@@ -1,0 +1,12 @@
+#ddev-generated
+# Mount a named Docker volume for Claude Code binaries (isolated)
+# Config files are stored in .ddev/claude/ (host-accessible)
+
+services:
+  web:
+    volumes:
+      - claude-binaries:/mnt/claude-binaries
+      - ./claude:/mnt/claude-config
+
+volumes:
+  claude-binaries:

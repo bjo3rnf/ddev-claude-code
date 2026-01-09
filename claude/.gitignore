@@ -1,0 +1,5 @@
+# Auth tokens - do not commit
+.claude.json
+
+# Claude data directory
+.claude/

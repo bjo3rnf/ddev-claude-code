@@ -1,0 +1,26 @@
+#ddev-generated
+# Claude Code add-on configuration
+# This file is merged with your project's .ddev/config.yaml
+
+hooks:
+  post-start:
+    # Fix volume permissions for binaries
+    - exec: "sudo chown -R $(id -u):$(id -g) /mnt/claude-binaries"
+    - exec: "mkdir -p /mnt/claude-binaries/local-bin /mnt/claude-binaries/local-share"
+    # Create config directories if needed
+    - exec: "mkdir -p /mnt/claude-config/.claude"
+    - exec: "test -s /mnt/claude-config/.claude.json || echo '{}' > /mnt/claude-config/.claude.json"
+    # Copy global CLAUDE.md and skills from homeadditions (if they exist)
+    - exec: "test -f ~/.claude-global/CLAUDE.md && cp -n ~/.claude-global/CLAUDE.md /mnt/claude-config/.claude/ || true"
+    - exec: "test -d ~/.claude-global/skills && cp -rn ~/.claude-global/skills /mnt/claude-config/.claude/ || true"
+    # Remove existing dirs/files and create symlinks
+    - exec: "rm -rf ~/.claude && ln -sfn /mnt/claude-config/.claude ~/.claude"
+    - exec: "rm -f ~/.claude.json && ln -sfn /mnt/claude-config/.claude.json ~/.claude.json"
+    # Symlink ~/.local/bin to volume (for claude binary)
+    - exec: "mkdir -p ~/.local && rm -rf ~/.local/bin && ln -sfn /mnt/claude-binaries/local-bin ~/.local/bin"
+    # Symlink ~/.local/share to volume (for claude versions)
+    - exec: "rm -rf ~/.local/share && ln -sfn /mnt/claude-binaries/local-share ~/.local/share"
+    # Set up PATH
+    - exec: "mkdir -p ~/.bashrc.d && echo 'export PATH=\"$HOME/.local/bin:$PATH\"' > ~/.bashrc.d/claude.sh"
+    # Install Claude Code if not already installed
+    - exec: "test -f /mnt/claude-binaries/local-share/claude/versions/*/claude || curl -fsSL https://claude.ai/install.sh | bash"
