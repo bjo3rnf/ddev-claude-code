@@ -60,6 +60,11 @@ Use DDEV's homeadditions to share across all projects. Create:
 
 These will be copied (without overwriting) to each project's config on `ddev restart`.
 
+## Security
+
+- Claude Code runs inside the DDEV container
+- Binaries are stored in an isolated Docker volume
+
 ## Removal
 
 ```bash
