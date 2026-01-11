@@ -23,4 +23,4 @@ hooks:
     # Set up PATH
     - exec: "mkdir -p ~/.bashrc.d && echo 'export PATH=\"$HOME/.local/bin:$PATH\"' > ~/.bashrc.d/claude.sh"
     # Install Claude Code if not already installed
-    - exec: "test -f /mnt/claude-binaries/local-share/claude/versions/*/claude || curl -fsSL https://claude.ai/install.sh | bash"
+    - exec: "ls /mnt/claude-binaries/local-share/claude/versions/* >/dev/null 2>&1 || curl -fsSL https://claude.ai/install.sh | bash"
